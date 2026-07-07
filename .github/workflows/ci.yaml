@@ -33,7 +33,7 @@ jobs:
           run:  python -m pytest
 
         - name: "success message"
-          if: ${{SUCCESS}}
+          if: ${{SUCCESS()}}
           run: echo "Success Message"
 
               
