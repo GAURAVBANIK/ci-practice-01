@@ -1,0 +1,49 @@
+name: first project
+
+on: 
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: "3.13" 
+    
+jobs:
+    checkout-job:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: checkout repsository
+          uses: actions/checkout@v4
+
+        - name: setup python
+          uses: actions/setup-python@v5
+          with: 
+            python-version: ${{env.PYTHON_VERSION}}
+
+        - name: installing dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt 
+
+        - name: running lint
+          run:  flake8 .
+
+        - name: running pytest
+          run:  python -m pytest
+
+        - name: "success message"
+          if: ${{SUCCESS}}
+          run: echo "Success Message"
+
+              
+
+
+
+    
+
+
+
+    
+      
+
